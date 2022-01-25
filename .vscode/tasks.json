@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "eslint",
+      "problemMatcher": ["$eslint-stylish"],
+      "label": "eslint: lint whole folder"
+    },
+    {
+      "type": "npm",
+      "label": "lint",
+      "script": "lint",
+      "problemMatcher": [
+        {
+          "owner": "eslint",
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "pattern": {
+            "regexp": "^(.+):\\s(.+)\\((.+)\\)\\sat\\s(.+):(\\d+):(\\d+):$",
+            "severity": 1,
+            "message": 2,
+            "code": 3,
+            "file": 4,
+            "line": 5,
+            "column": 6
+          }
+        }
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}
