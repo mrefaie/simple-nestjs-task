@@ -1,7 +1,30 @@
 version: '3.8'
 
 services:
-  dev:
+  dev_migration:
+    container_name: ${APP_NAME}_migrations_container
+    env_file:
+      - .env.dev
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    entrypoint:
+      - /bin/bash
+      - -c
+      - 'npm run typeorm:migration:run'
+    networks:
+      - local-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: 'no'
+    depends_on:
+      redis:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+  dev_app:
     container_name: ${APP_NAME}_app_container
     env_file:
       - .env.dev
@@ -18,11 +41,22 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+      dev_migration:
+        condition: service_started
   redis:
     container_name: ${APP_NAME}_redis_container
     image: redis:5
     networks:
       - local-network
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      timeout: 20s
+      retries: 10
   mysql:
     container_name: ${APP_NAME}_mysql_container
     image: mysql:8.0.28
@@ -38,5 +72,9 @@ services:
       - /var/lib/mysql
     networks:
       - local-network
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 20s
+      retries: 10
 networks:
   local-network:
