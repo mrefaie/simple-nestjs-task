@@ -13,8 +13,9 @@ export default registerAs('database', () => ({
   synchronize: false,
   keepConnectionAlive: true,
   logging: process.env.NODE_ENV === 'development',
-  entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+  entities: [join(__dirname, '../**', '*.entity.{ts,js}')],
   migrations: [join(__dirname, '..', 'migrations/**', '*.{ts,js}')],
+  seeds: [join(__dirname, '..', 'seeds/**/*{.ts,.js}')],
   cli: {
     migrationsDir: 'src/migrations',
   },

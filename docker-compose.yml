@@ -12,7 +12,7 @@ services:
     entrypoint:
       - /bin/bash
       - -c
-      - 'npm run typeorm:migration:run'
+      - 'npm run typeorm:migration:run && npm run typeorm:seed:run'
     networks:
       - local-network
     volumes:
