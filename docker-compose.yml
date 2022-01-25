@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  dev:
+    container_name: ${APP_NAME}_app_container
+    env_file:
+      - .env.dev
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:debug
+    ports:
+      - ${APP_PORT_EXPOSED}:${APP_PORT}
+    networks:
+      - local-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  redis:
+    container_name: ${APP_NAME}_redis_container
+    image: redis:5
+    networks:
+      - local-network
+  mysql:
+    container_name: ${APP_NAME}_mysql_container
+    image: mysql:8.0.28
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - 3336:3306
+    volumes:
+      - /var/lib/mysql
+    networks:
+      - local-network
+networks:
+  local-network:
