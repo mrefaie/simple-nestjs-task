@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { IsByteLength, IsString, MaxLength } from 'class-validator';
 import { User } from './User.entity';
 
@@ -18,5 +24,6 @@ export class Job {
   description: string;
 
   @ManyToOne(() => User, (user) => user.jobs)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 }

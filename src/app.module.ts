@@ -10,6 +10,8 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { UsersController } from './users/user.controller';
+import { JobsController } from './jobs/jobs.controller';
+import { JobsModule } from './jobs/jobs.module';
 
 @Module({
   imports: [
@@ -35,8 +37,9 @@ import { UsersController } from './users/user.controller';
     }),
     AuthModule,
     UsersModule,
+    JobsModule,
   ],
-  controllers: [AppController, AuthController, UsersController],
+  controllers: [AppController, AuthController, UsersController, JobsController],
   providers: [AppService],
 })
 export class AppModule {}
