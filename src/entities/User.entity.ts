@@ -7,8 +7,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Length, IsEmail } from 'class-validator';
-import { sha512 } from 'js-sha512';
 import { Job } from './Job.entity';
+import hash from '../helpers/hash';
 
 export enum UserRole {
   REGULAR = 'Regular',
@@ -37,14 +37,14 @@ export class User {
   @BeforeInsert()
   async onCreateUser() {
     this.email = this.email.toLowerCase();
-    this.password = sha512(this.password);
+    this.password = hash(this.password);
   }
 
   @BeforeUpdate()
   async onUpdateUser() {
     this.email = this.email.toLowerCase();
     if (this.password) {
-      this.password = sha512(this.password);
+      this.password = hash(this.password);
     }
   }
 }
