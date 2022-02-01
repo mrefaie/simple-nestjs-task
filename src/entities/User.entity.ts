@@ -4,9 +4,11 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
+  OneToMany,
 } from 'typeorm';
 import { Length, IsEmail } from 'class-validator';
 import { sha512 } from 'js-sha512';
+import { Job } from './Job.entity';
 
 export enum UserRole {
   REGULAR = 'Regular',
@@ -28,6 +30,9 @@ export class User {
 
   @Column('enum', { enum: UserRole })
   role: UserRole;
+
+  @OneToMany(() => Job, (job) => job.user)
+  jobs: Job[];
 
   @BeforeInsert()
   async onCreateUser() {
