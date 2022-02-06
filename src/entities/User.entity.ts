@@ -9,6 +9,7 @@ import {
 import { Length, IsEmail } from 'class-validator';
 import { Job } from './Job.entity';
 import hash from '../helpers/hash';
+import { Exclude } from 'class-transformer';
 
 export enum UserRole {
   REGULAR = 'Regular',
@@ -24,7 +25,8 @@ export class User {
   @IsEmail()
   email: string;
 
-  @Column('varchar', { length: 128 })
+  @Exclude()
+  @Column('varchar', { length: 128, select: false })
   @Length(6, 100)
   password: string;
 

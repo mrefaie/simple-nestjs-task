@@ -7,6 +7,9 @@ export class UsersService {
   constructor(private usersRepository: UsersRepository) {}
 
   public async fineOneByEmail(email): Promise<User> {
-    return this.usersRepository.findOne({ email: email });
+    return this.usersRepository.findOne({
+      select: ['id', 'email', 'password', 'role'],
+      where: { email: email },
+    });
   }
 }
