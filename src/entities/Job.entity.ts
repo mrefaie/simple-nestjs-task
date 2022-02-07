@@ -26,4 +26,8 @@ export class Job {
   @ManyToOne(() => User, (user) => user.jobs)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  constructor(partial: Partial<Job>) {
+    Object.assign(this, partial);
+  }
 }

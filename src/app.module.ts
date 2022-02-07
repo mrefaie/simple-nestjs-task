@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -12,6 +12,8 @@ import { UsersModule } from './users/users.module';
 import { UsersController } from './users/user.controller';
 import { JobsController } from './jobs/jobs.controller';
 import { JobsModule } from './jobs/jobs.module';
+import { CaslModule } from './casl/casl.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -38,6 +40,7 @@ import { JobsModule } from './jobs/jobs.module';
     AuthModule,
     UsersModule,
     JobsModule,
+    CaslModule,
   ],
   controllers: [AppController, AuthController, UsersController, JobsController],
   providers: [AppService],

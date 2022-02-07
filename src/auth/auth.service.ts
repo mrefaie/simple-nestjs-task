@@ -11,10 +11,14 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.usersService.fineOneByEmail(email);
-    if (user && user.password === hash(password)) {
-      const { password, ...result } = user;
-      return result;
+    const user = await this.usersService.fineOneByEmailAndPassword(
+      email,
+      hash(password),
+      [],
+      true,
+    );
+    if (user) {
+      return user;
     }
     return null;
   }

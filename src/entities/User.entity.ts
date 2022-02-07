@@ -10,6 +10,7 @@ import { Length, IsEmail } from 'class-validator';
 import { Job } from './Job.entity';
 import hash from '../helpers/hash';
 import { Exclude } from 'class-transformer';
+import { Ability } from '@casl/ability';
 
 export enum UserRole {
   REGULAR = 'Regular',
@@ -25,7 +26,6 @@ export class User {
   @IsEmail()
   email: string;
 
-  @Exclude()
   @Column('varchar', { length: 128, select: false })
   @Length(6, 100)
   password: string;
@@ -35,6 +35,12 @@ export class User {
 
   @OneToMany(() => Job, (job) => job.user)
   jobs: Job[];
+
+  ability: () => Ability<any, any>;
+
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 
   @BeforeInsert()
   async onCreateUser() {

@@ -12,7 +12,7 @@ export class JobByIdPipe<T> implements PipeTransform<string, Promise<Job>> {
   constructor(private jobsService: JobsService) {}
 
   async transform(value: any, metadata: ArgumentMetadata) {
-    const object = await this.jobsService.findById(value);
+    const object = await this.jobsService.findById(value, ['user']);
 
     if (!object) {
       throw new BadRequestException('Object not found');

@@ -20,6 +20,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: any) {
     const { password, ...userData } = await this.usersService.fineOneByEmail(
       payload.email,
+      [],
+      true,
     );
     return userData;
   }

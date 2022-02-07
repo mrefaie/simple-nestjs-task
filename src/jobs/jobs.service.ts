@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { JoinOptions } from 'typeorm';
 import { Job } from '../entities/Job.entity';
 import IBasicService from '../intefaces/services/ibasic.service';
 import { JobsRepository } from './jobs.repository';
@@ -7,25 +8,34 @@ import { JobsRepository } from './jobs.repository';
 export class JobsService implements IBasicService<Job> {
   constructor(private jobsRepository: JobsRepository) {}
 
-  async getAll(): Promise<Job[]> {
+  async getAll(loadRelations?: string[]): Promise<Job[]> {
     return this.jobsRepository.find({
       join: {
         alias: 'job',
         leftJoinAndSelect: {
-          user: 'job.user',
+          ...loadRelations?.reduce(
+            (acc, relation) => ({ ...acc, [relation]: `job.${relation}` }),
+            {},
+          ),
         },
-      },
+      } as JoinOptions,
     });
   }
 
-  async findById(id: string): Promise<Job> {
+  async findById(id: string, loadRelations?: string[]): Promise<Job> {
     return this.jobsRepository.findOne(id, {
-      relations: ['user'],
+      relations: loadRelations,
     });
   }
 
-  async getByUserId(userId: string): Promise<Job[]> {
-    return this.jobsRepository.find({ where: { User: { id: userId } } });
+  async getAllFilteredByUserId(
+    userId: string,
+    loadRelations?: string[],
+  ): Promise<Job[]> {
+    return this.jobsRepository.find({
+      where: { user: { id: userId } },
+      relations: loadRelations,
+    });
   }
 
   async create(job: Job): Promise<Job> {
