@@ -11,13 +11,12 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { JwtGuard } from '../auth/jwt.guard';
-import { UserRole } from '../entities/User.entity';
+import { UserRole, User as UserEntity } from '../entities/User.entity';
 import { JobsService } from './jobs.service';
 import { CreateJobDTO } from './dtos/create.job.dto';
 import { Job } from '../entities/Job.entity';
 import { UpdateJobDTO } from './dtos/update.job.dto';
 import { JobByIdPipe } from './pipes/job.by.id.pipe';
-import { User as UserEntity } from '../entities/User.entity';
 import { User } from '../users/user.decorator';
 import { Action } from '../casl/casl.actions';
 
