@@ -11,6 +11,7 @@ import { Job } from './Job.entity';
 import hash from '../helpers/hash';
 import { Exclude } from 'class-transformer';
 import { Ability } from '@casl/ability';
+import { CustomColumn } from '../typeorm/custom.column.decorator';
 
 export enum UserRole {
   REGULAR = 'Regular',
@@ -30,7 +31,11 @@ export class User {
   @Length(6, 100)
   password: string;
 
-  @Column('enum', { enum: UserRole })
+  @CustomColumn({
+    type: 'enum',
+    enum: UserRole,
+    testingType: 'varchar',
+  })
   role: UserRole;
 
   @OneToMany(() => Job, (job) => job.user)

@@ -9,7 +9,7 @@ import authConfig from './config/auth.config';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { UsersController } from './users/user.controller';
+import { UsersController } from './users/users.controller';
 import { JobsController } from './jobs/jobs.controller';
 import { JobsModule } from './jobs/jobs.module';
 import { CaslModule } from './casl/casl.module';
