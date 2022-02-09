@@ -1,73 +1,91 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+## Tech
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This simple API is created using:
+[Nest](https://github.com/nestjs/nest) framework.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Get Started
 
-## Description
+- Clone Repo
+- Create .env.dev file in the project root with the following contents:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+```
+NODE_ENV=development
+APP_NAME="NestjsSimpleTask"
+APP_PORT_EXPOSED=3333
+APP_PORT=3000
+WORKER_PORT=3000
+DB_HOST=NestjsSimpleTask_mysql_container
+DB_USER=NESTJS
+DB_PASSWORD=NESTJS@123456
+DB_NAME=SimpleTaskDB
 
-## Installation
+TYPEORM_ENTITIES=**/*.entity{.ts|.js}
+TYPEORM_SEEDING_SEEDS=**/seeds/**/*{.ts|.js}
 
-```bash
-$ npm install
+JWT_SIGN_SECRET=@@@@
+JWT_EXPIRY_IN_SECONDS=3600
+
+REDIS_HOST=NestjsSimpleTask_redis_container
+REDIS_PORT=6379
+
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USER=xxx
+MAIL_PASSWORD=xxx
+MAIL_FROM_NAME=Test
+MAIL_FROM_EMAIL=example@email.com
 ```
 
-## Running the app
+> Just put your mailtrap values for `MAIL_USER` and `MAIL_PASSWORD` and please keep the same port for mailtrap to work
+
+- Run the project using the following command:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker-compose --env-file .env.dev up
 ```
 
-## Test
+- Check the API documentation at: `http://localhost:3333/api`
+- Finally use the following one of the following credentials to login:
+
+```
+// Manager Account
+email: manager@example.com
+password: 123456
+
+// Regular Account
+email: user@example.com
+password: 123456
+```
+
+> Make sure you have docker latest version installed
+
+## Testing
+
+To run the unit tests use the following commands:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker build --build-arg NODE_ENV=test -t simple_api_app .
+docker run simple_api_app npm run test
 ```
 
-## Support
+## Roadmap
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+| Task                                   | Completed Percentage |
+| -------------------------------------- | -------------------- |
+| Setupup Framework and Dependencies     | 100%                 |
+| Write DB Migrations                    | 100%                 |
+| Configure Entities and DB Repositories | 100%                 |
+| Create User Authentication             | 100%                 |
+| Users API Endpoints                    | 100%                 |
+| Jobs API Endpoints                     | 100%                 |
+| Users Authorization                    | 100%                 |
+| Decoupled Notifications                | 100%                 |
+| Unit Testing                           | 70%                  |
+| E2E Testing                            | 0%                   |
+| API Security                           | 50%                  |
+| API Throttling                         | 0%                   |
+| API Pagination                         | 0%                   |
+| Dockerized Development Environment     | 100%                 |
+| Kubernetes Deployment Script           | 0%                   |
+| Documentation                          | 20%                  |
+| Scalability                            | 90%                  |

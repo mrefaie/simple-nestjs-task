@@ -1,3 +1,4 @@
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 export const TypeormModuleMock = () => [
@@ -8,4 +9,5 @@ export const TypeormModuleMock = () => [
     entities: [__dirname + '/../../../src/**/*.entity{.ts,.js}'],
     synchronize: true,
   }),
+  EventEmitterModule.forRoot(),
 ];

@@ -43,6 +43,7 @@
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/passport": "^8.1.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^5.2.0",
     "@nestjs/typeorm": "^8.0.3",
     "bull": "^3.29.3",
     "cache-manager": "^3.6.0",
@@ -62,6 +63,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.3.0",
     "typeorm": "^0.2.41",
     "typeorm-seeding": "^1.6.1"
   },

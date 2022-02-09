@@ -18,11 +18,20 @@ import { UpdateJobDTO } from './dtos/update.job.dto';
 import { JobByIdPipe } from './pipes/job.by.id.pipe';
 import { User } from '../users/user.decorator';
 import { Action } from '../casl/casl.actions';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiParam,
+  ApiResponse,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller()
 export class JobsController {
   constructor(private jobsService: JobsService) {}
 
+  @ApiOkResponse({ status: 200, description: 'Successfully Fetched.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @UseGuards(JwtGuard)
   @Get('jobs')
   async getAllJobs(@User() user: UserEntity): Promise<Job[]> {
@@ -35,6 +44,8 @@ export class JobsController {
     }
   }
 
+  @ApiOkResponse({ status: 201, description: 'Successfully Created.' })
+  @ApiResponse({ status: 400, description: 'Validation Error.' })
   @UseGuards(JwtGuard)
   @Post('jobs')
   async createJob(
@@ -44,6 +55,14 @@ export class JobsController {
     return this.jobsService.create({ ...createJobDTO, user } as Job);
   }
 
+  @ApiOkResponse({ status: 200, description: 'Successfully Updated.' })
+  @ApiResponse({ status: 400, description: 'Validation Error.' })
+  @ApiParam({
+    description: 'Job Id',
+    required: true,
+    name: 'id',
+    type: 'string',
+  })
   @UseGuards(JwtGuard)
   @Put('jobs/:id')
   async updateJob(
