@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CaslAbilityFactory } from '../casl/casl.ability.factory';
-import { User } from '../entities/User.entity';
+import { User, UserRole } from '../entities/User.entity';
 import { UsersRepository } from './users.repository';
 
 @Injectable()
@@ -9,6 +9,10 @@ export class UsersService {
     private usersRepository: UsersRepository,
     private caslAbilityFactory: CaslAbilityFactory,
   ) {}
+
+  public async getAllManagers(): Promise<User[]> {
+    return this.usersRepository.find({ where: { role: UserRole.MANAGER } });
+  }
 
   public async fineOneByEmailAndPassword(
     email: string,
