@@ -46,7 +46,7 @@ export class JobsController {
 
   @UseGuards(JwtGuard)
   @Put('jobs/:id')
-  async UpdateJob(
+  async updateJob(
     @User() user: UserEntity,
     @Param('id', ParseUUIDPipe, JobByIdPipe)
     job: Job,
