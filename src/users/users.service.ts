@@ -20,7 +20,7 @@ export class UsersService {
       where: { email, password },
       relations: loadRelations,
     });
-    loadAbility && this.attachAbility(user);
+    user && loadAbility && this.attachAbility(user);
     return user;
   }
 

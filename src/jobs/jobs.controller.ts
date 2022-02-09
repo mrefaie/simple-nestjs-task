@@ -1,6 +1,5 @@
 import {
   Controller,
-  Request,
   Post,
   UseGuards,
   Get,
@@ -11,7 +10,7 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { JwtGuard } from '../auth/jwt.guard';
-import { UserRole, User as UserEntity } from '../entities/User.entity';
+import { User as UserEntity } from '../entities/User.entity';
 import { JobsService } from './jobs.service';
 import { CreateJobDTO } from './dtos/create.job.dto';
 import { Job } from '../entities/Job.entity';

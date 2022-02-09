@@ -9,7 +9,6 @@ import {
 import { Length, IsEmail } from 'class-validator';
 import { Job } from './Job.entity';
 import hash from '../helpers/hash';
-import { Exclude } from 'class-transformer';
 import { Ability } from '@casl/ability';
 import { CustomColumn } from '../typeorm/custom.column.decorator';
 

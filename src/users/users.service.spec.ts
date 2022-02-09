@@ -1,13 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getConnection } from 'typeorm';
 import { TypeormModuleMock } from '../../test/unit/bootstrap/typeorm.module.mock';
 import { Action } from '../casl/casl.actions';
 import { CaslModule } from '../casl/casl.module';
 import { Job } from '../entities/Job.entity';
 import { User, UserRole } from '../entities/User.entity';
 import hash from '../helpers/hash';
-import { UsersController } from './users.controller';
 import { UsersRepository } from './users.repository';
 import { UsersService } from './users.service';
 
@@ -54,6 +52,7 @@ describe('UsersController', () => {
 
   describe('fineOneByEmailAndPassword', () => {
     it('should return user by email and hashed password', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userWitoutPassword } = testManagerUser;
 
       expect(
@@ -65,7 +64,6 @@ describe('UsersController', () => {
     });
 
     it('should return user by email and hashed password and ability functions', async () => {
-      const { password, ...userWitoutPassword } = testManagerUser;
       const r = await usersService.fineOneByEmailAndPassword(
         testManagerUser.email,
         hash(testManagerUser.password),
@@ -80,6 +78,7 @@ describe('UsersController', () => {
 
   describe('fineOneByEmail', () => {
     it('should return user by email', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userWitoutPassword } = testManagerUser;
       expect(await usersService.fineOneByEmail(testManagerUser.email)).toEqual(
         new User(userWitoutPassword),
@@ -89,6 +88,7 @@ describe('UsersController', () => {
 
   describe('ManagerAbilities', () => {
     it('should allow manager to manage all jobs', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userWitoutPassword } = testManagerUser;
       const r = await usersService.fineOneByEmailAndPassword(
         testManagerUser.email,
@@ -103,6 +103,7 @@ describe('UsersController', () => {
 
   describe('RegularAbilities', () => {
     it('should disallow regular user to manage all jobs', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userWitoutPassword } = testRegularUser;
       const r = await usersService.fineOneByEmailAndPassword(
         testRegularUser.email,
@@ -115,6 +116,7 @@ describe('UsersController', () => {
     });
 
     it('should allow regular user to manage own jobs', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userWitoutPassword } = testRegularUser;
       const r = await usersService.fineOneByEmailAndPassword(
         testRegularUser.email,

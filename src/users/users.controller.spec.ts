@@ -9,7 +9,6 @@ import { UsersService } from './users.service';
 
 describe('UsersController', () => {
   let usersController: UsersController;
-  let usersService: UsersService;
 
   const testManagerUser = new User({
     email: 'admin@example.com',
